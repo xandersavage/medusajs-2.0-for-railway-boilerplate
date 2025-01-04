@@ -23,9 +23,7 @@ const Hero = () => {
           href="https://funkyton.com/medusajs-2-0-is-finally-here/"
           target="_blank"
         >
-          <h1 style={{ textDecoration: "underline" }}>
-            Visit the tutorial
-          </h1>
+          
         </a>
       </div>
     </div>
