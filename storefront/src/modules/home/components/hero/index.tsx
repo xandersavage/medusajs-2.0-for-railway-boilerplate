@@ -19,12 +19,7 @@ const Hero = () => {
             Wear the Bold. Own the Moment
           </Heading>
         </span>
-        <a
-          href="https://funkyton.com/medusajs-2-0-is-finally-here/"
-          target="_blank"
-        >
-          
-        </a>
+        
       </div>
     </div>
   )
