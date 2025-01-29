@@ -23,6 +23,16 @@ const CartDropdown = ({
   )
   const [cartDropdownOpen, setCartDropdownOpen] = useState(false)
 
+  const handleMouseEnter = () => {
+    console.log("Mouse entered cart area")
+    setCartDropdownOpen(true)
+  }
+
+  const handleMouseLeave = () => {
+    console.log("Mouse left cart area")
+    setCartDropdownOpen(false)
+  }
+
   const open = () => setCartDropdownOpen(true)
   const close = () => setCartDropdownOpen(false)
 
@@ -71,9 +81,9 @@ const CartDropdown = ({
 
   return (
     <div
-      className="h-full z-50"
-      onMouseEnter={openAndCancel}
-      onMouseLeave={close}
+      className="h-full z-50 font-montserrat leading-normal text-lg text-slate-gray"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <Popover className="relative h-full">
         <Popover.Button className="h-full">
@@ -95,7 +105,7 @@ const CartDropdown = ({
         >
           <Popover.Panel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="absolute top-full right-0 bg-white border border-gray-200 w-[480px] text-ui-fg-base z-50 shadow-lg"
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
@@ -129,7 +139,7 @@ const CartDropdown = ({
                         <div className="flex flex-col justify-between flex-1">
                           <div className="flex flex-col flex-1">
                             <div className="flex items-start justify-between">
-                              <div className="flex flex-col overflow-ellipsis whitespace-nowrap mr-4 w-[180px]">
+                              <div className="flex flex-col overflow-ellipsis whitespace-normal mr-4 flex-1 min-w-0">
                                 <h3 className="text-base-regular overflow-hidden text-ellipsis">
                                   <LocalizedClientLink
                                     href={`/products/${item.variant?.product?.handle}`}
@@ -146,11 +156,12 @@ const CartDropdown = ({
                                 <span
                                   data-testid="cart-item-quantity"
                                   data-value={item.quantity}
+                                  className="text-small-regular"
                                 >
                                   Quantity: {item.quantity}
                                 </span>
                               </div>
-                              <div className="flex justify-end">
+                              <div className="flex flex-col justify-end items-end min-w-[100px]">
                                 <LineItemPrice item={item} style="tight" />
                               </div>
                             </div>

@@ -18,5 +18,9 @@ export default async function OverviewTemplate() {
     notFound()
   }
 
-  return <Overview customer={customer} orders={orders} />
+  return (
+    <section className="padding">
+      <Overview customer={customer} orders={orders} />
+    </section>
+  )
 }

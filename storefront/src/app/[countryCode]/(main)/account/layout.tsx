@@ -11,8 +11,10 @@ export default async function AccountPageLayout({
   const customer = await getCustomer().catch(() => null)
 
   return (
-    <AccountLayout customer={customer}>
-      {customer ? dashboard : login}
-    </AccountLayout>
+    <section className="padding">
+      <AccountLayout customer={customer}>
+        {customer ? dashboard : login}
+      </AccountLayout>
+    </section>
   )
 }

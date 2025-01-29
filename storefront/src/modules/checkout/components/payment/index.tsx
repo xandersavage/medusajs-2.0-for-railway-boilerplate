@@ -83,25 +83,27 @@ const Payment = ({
   }
 
   const handleSubmit = async () => {
+    console.log(cart)
     setIsLoading(true)
     try {
+      // Add validation for cart email
+      if (!cart?.email) {
+        throw new Error("Email is required to proceed with payment")
+      }
+
       const shouldInputCard =
         isStripeFunc(selectedPaymentMethod) && !activeSession
 
       if (!activeSession) {
         await initiatePaymentSession(cart, {
           provider_id: selectedPaymentMethod,
+          context: cart,
         })
       }
 
-      if (!shouldInputCard) {
-        return router.push(
-          pathname + "?" + createQueryString("step", "review"),
-          {
-            scroll: false,
-          }
-        )
-      }
+      router.push(pathname + "?" + createQueryString("step", "review"), {
+        scroll: false,
+      })
     } catch (err: any) {
       setError(err.message)
     } finally {

@@ -1,15 +1,19 @@
 import { Metadata } from "next"
 
+import CustomerReviews from "@modules/home/components/CustomerReviews/CustomerReviews"
+import Hero from "@modules/home/components/Hero/Hero"
+import PopularProducts from "@modules/home/components/PopularProducts/PopularProducts"
+import Services from "@modules/home/components/Services/Services"
+import SpecialOffer from "@modules/home/components/SpecialOffer/SpecialOffer"
+import Subscribe from "@modules/home/components/Subscribe/Subscribe"
+import SuperQuality from "@modules/home/components/SuperQuality/SuperQuality"
 import FeaturedProducts from "@modules/home/components/featured-products"
-import Hero from "@modules/home/components/hero"
-import Testimonials from "@modules/home/components/testimonials"
 import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
   title: "Pawklan",
-  description:
-    "Wear the brave",
+  description: "Wear the brave",
 }
 
 export default async function Home({
@@ -26,13 +30,27 @@ export default async function Home({
 
   return (
     <>
-      <Hero />
-      <Testimonials />
-      <div className="py-12">
-        <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
-        </ul>
-      </div>
+      <section className="xl:padding-l wide:padding-r padding-b">
+        <Hero />
+      </section>
+      <section className="padding">
+        <PopularProducts />
+      </section>
+      <section className="padding">
+        <SuperQuality />
+      </section>
+      <section className="padding-x py-10">
+        <Services />
+      </section>
+      <section className="padding">
+        <SpecialOffer />
+      </section>
+      <section className="padding bg-pale-blue">
+        <CustomerReviews />
+      </section>
+      <section className="padding-x sm:py-32 py-16 w-full">
+        <Subscribe />
+      </section>
     </>
   )
 }

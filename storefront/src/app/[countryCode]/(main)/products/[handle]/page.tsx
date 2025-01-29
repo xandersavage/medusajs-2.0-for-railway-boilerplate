@@ -80,10 +80,12 @@ export default async function ProductPage({ params }: Props) {
   }
 
   return (
-    <ProductTemplate
-      product={pricedProduct}
-      region={region}
-      countryCode={params.countryCode}
-    />
+    <section className="padding">
+      <ProductTemplate
+        product={pricedProduct}
+        region={region}
+        countryCode={params.countryCode}
+      />
+    </section>
   )
 }

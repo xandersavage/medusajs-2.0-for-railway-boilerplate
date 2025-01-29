@@ -8,5 +8,9 @@ export const metadata: Metadata = {
 }
 
 export default function Login() {
-  return <LoginTemplate />
+  return (
+    <section className="padding">
+      <LoginTemplate />
+    </section>
+  )
 }

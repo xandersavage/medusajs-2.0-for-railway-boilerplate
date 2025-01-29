@@ -1,155 +1,96 @@
-import { getCategoriesList } from "@lib/data/categories"
-import { getCollectionsList } from "@lib/data/collections"
-import { Text, clx } from "@medusajs/ui"
-
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
+import Image from "next/image"
+import { footerLogo } from "../../../../../public/assets/images"
+import { footerLinks, socialMedia } from "../../../../../public/constants"
+import { copyrightSign } from "../../../../../public/assets/icons"
 
-export default async function Footer() {
-  const { collections } = await getCollectionsList(0, 6)
-  const { product_categories } = await getCategoriesList(0, 6)
-
+const index = () => {
   return (
-    <footer className="border-t border-ui-border-base w-full">
-      <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
-            >
-              PawKlan Store
+    <section className=" bg-black padding-x padding-t pb-8">
+      <footer className="max-container">
+        <div
+          className="flex justify-between items-start gap-20 flex-wrap
+        max-lg:flex-col"
+        >
+          <div className="flex flex-col items-start">
+            <LocalizedClientLink href="/">
+              <Image src={footerLogo} width={150} height={46} />
             </LocalizedClientLink>
+            <p
+              className="mt-6 text-base leading-7 font-montserrat
+            text-white-400 sm:max-w-sm"
+            >
+              Make a statement with every step. Our designs combine contemporary
+              trends with timeless appeal, ensuring you stand out for all the
+              right reasons.
+            </p>
+            <div className="flex items-center gap-5 mt-8">
+              {socialMedia.map((icon) => (
+                <div
+                  className="flex justify-center items-center w-12 h-12 bg-white
+                rounded-full"
+                >
+                  <Image alt={icon.alt} src={icon.src} width={24} height={24} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {product_categories && product_categories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul
-                  className="grid grid-cols-1 gap-2"
-                  data-testid="footer-categories"
+          <div
+            className="flex flex-1 justify-between lg:gap-10
+          gap-20 flex-wrap"
+          >
+            {footerLinks.map((section) => (
+              <div key={section}>
+                <h4
+                  className="text-white font-montserrat
+                text-2xl leading-normal font-medium mb-6"
                 >
-                  {product_categories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
-
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
-
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
-                >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
+                  {section.title}
+                </h4>
+                <ul>
+                  {section.links.map((link) => (
+                    <li
+                      key={link.name}
+                      className="mt-3 text-white-400 font-montserrat text-base
+                    leading-normal hover:text-slate-gray cursor-pointer"
+                    >
                       <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
+                        href={link.link}
+                        className="text-white-400 hover:text-white"
                       >
-                        {c.title}
+                        {link.name}
                       </LocalizedClientLink>
                     </li>
                   ))}
                 </ul>
               </div>
-            )}
-            <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
-                <li>
-                  <a
-                    href="https://github.com/medusajs"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://docs.medusajs.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/medusajs/nextjs-starter-medusa"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Source code
-                  </a>
-                </li>
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} PawKlan Store. All rights reserved.
-          </Text>
-          <MedusaCTA />
+        <div
+          className="flex justify-between text-white-400 mt-24
+        max-sm:flex-col max-sm:items-center"
+        >
+          <div
+            className="flex flex-1 justify-start items-center gap-2
+          font-montserrat cursor-pointer"
+          >
+            <Image
+              src={copyrightSign}
+              alt="CopyRight"
+              width={20}
+              height={20}
+              className="rounded-full m-0"
+            />
+            <p>Copyright. All rights reserved</p>
+          </div>
+          <p className="font-montserrat text-base leading-7 cursor-pointer">
+            Terms & Conditions
+          </p>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </section>
   )
 }
+
+export default index

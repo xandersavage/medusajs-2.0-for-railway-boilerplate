@@ -9,7 +9,8 @@ import ErrorMessage from "../error-message"
 import Spinner from "@modules/common/icons/spinner"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
-import { isManual, isPaypal, isStripe } from "@lib/constants"
+import { isManual, isPaypal, isStripe, isPaystack } from "@lib/constants"
+import { PaystackButton } from "react-paystack" // Paystack payment button
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -53,6 +54,14 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
     case isPaypal(paymentSession?.provider_id):
       return (
         <PayPalPaymentButton
+          notReady={notReady}
+          cart={cart}
+          data-testid={dataTestId}
+        />
+      )
+    case isPaystack(paymentSession?.provider_id):
+      return (
+        <PaystackPaymentButton
           notReady={notReady}
           cart={cart}
           data-testid={dataTestId}
@@ -294,6 +303,71 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
         error={errorMessage}
         data-testid="manual-payment-error-message"
       />
+    </>
+  )
+}
+
+// Paystack Button Config
+const publicKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+if (!publicKey) throw new Error("Paystack public key is not defined")
+
+type EnabledCurrencies = "NGN"
+
+const PaystackPaymentButton = ({
+  cart,
+  notReady,
+  "data-testid": dataTestId,
+}: {
+  cart: HttpTypes.StoreCart
+  notReady: boolean
+  "data-testid"?: string
+}) => {
+  const [error, setError] = useState<string | null>(null)
+  const session = cart.payment_collection?.payment_sessions?.find(
+    (s) => s.status === "pending"
+  )
+
+  // Validate email exists
+  const email = cart.email
+  if (!email) {
+    return <ErrorMessage error="Email is required for Paystack payment" />
+  }
+
+  const reference = String(session?.data.paystackTxRef)
+  const amount = cart.total * 100
+  const currency: EnabledCurrencies = "NGN"
+
+  const onPaymentCompleted = async () => {
+    await placeOrder().catch((err) => {
+      console.error(err.message)
+    })
+  }
+
+  const paystackProps = {
+    email: email, // Now guaranteed to exist
+    amount,
+    reference,
+    publicKey: publicKey as string,
+    currency,
+    onSuccess: onPaymentCompleted,
+  }
+
+  console.log(paystackProps)
+
+  if (notReady || !cart?.total) return null
+
+  return (
+    <>
+      <PaystackButton
+        {...paystackProps}
+        className={`px-4 py-2 bg-blue-500 text-white rounded ${
+          notReady ? "opacity-50 cursor-not-allowed" : ""
+        }`}
+        disabled={notReady}
+        data-testid={dataTestId}
+        text="Pay Now"
+      />
+      <ErrorMessage error={error} />
     </>
   )
 }

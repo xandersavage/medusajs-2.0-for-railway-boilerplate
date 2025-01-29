@@ -28,7 +28,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
   const salesChannelModuleService = container.resolve(Modules.SALES_CHANNEL);
   const storeModuleService = container.resolve(Modules.STORE);
 
-  const countries = ["gb", "de", "dk", "se", "fr", "es", "it"];
+  const countries = ["ng"];
 
   logger.info("Seeding store data...");
   const [store] = await storeModuleService.listStores();
@@ -58,7 +58,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
       update: {
         supported_currencies: [
           {
-            currency_code: "eur",
+            currency_code: "ngn", // Nigerian Naira currency code
             is_default: true,
           },
           {
@@ -74,9 +74,9 @@ export default async function seedDemoData({ container }: ExecArgs) {
     input: {
       regions: [
         {
-          name: "Europe",
-          currency_code: "eur",
-          countries,
+          name: "Nigeria", // Changed from "Europe" to "Nigeria"
+          currency_code: "ngn", // Nigerian Naira currency code
+          countries, // Now only contains "ng" (Nigeria)
           payment_providers: ["pp_system_default"],
         },
       ],

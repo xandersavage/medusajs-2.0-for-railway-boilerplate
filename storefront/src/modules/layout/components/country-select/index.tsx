@@ -68,10 +68,13 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
         }
       >
         <Listbox.Button className="py-1 w-full">
-          <div className="txt-compact-small flex items-start gap-x-2">
-            <span>Shipping to:</span>
+          <div
+            className="txt-compact-small flex items-start
+           gap-x-2 font-montserrat font-semibold"
+          >
+            <span className="text-xl">Shipping to: </span>
             {current && (
-              <span className="txt-compact-small flex items-center gap-x-2">
+              <span className="text-xl flex items-center gap-x-2">
                 <ReactCountryFlag
                   svg
                   style={{
