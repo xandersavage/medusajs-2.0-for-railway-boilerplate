@@ -1,15 +1,15 @@
 "use client"
 
-import Image from "next/image"
+import Image, { StaticImageData } from "next/image"
 import Button from "@modules/home/components/Button/Button"
 import { arrowRight } from "../../../../../public/assets/icons"
-import { shoes, statistics } from "../../../../../public/constants"
-import { bigShoe1 } from "../../../../../public/assets/images"
+import { tshirt, statistics } from "../../../../../public/constants"
+import { pawklanTshirt1 } from "../../../../../public/assets/images/pawklan/tshirt/transparent"
 import ShoeCard from "@modules/home/components/ShoeCard/ShoeCard"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import { useState } from "react"
+import { SetStateAction, useState } from "react"
 const Hero = () => {
-  const [bigShoeImg, setBigShoeImg] = useState(bigShoe1)
+  const [bigShoeImg, setBigShoeImg] = useState(pawklanTshirt1)
   return (
     <section
       id="hero"
@@ -30,17 +30,18 @@ const Hero = () => {
             className="xl:bg-white xl:whitespace-nowrap
           relative z-[8] pr-10"
           >
-            The New Arrival
+            New Arrival
           </span>
           <br />
-          <span className="text-coral-red inline-block mt-3">Nike</span> Shoes
+          <span className="text-coral-red inline-block mt-3">Pawklan</span>{" "}
+          Clothes
         </h1>
         <p
           className="fomontserrat text-slate-gray text-lg leading-8 mt-6
         mb-14 sm:max-w-sm"
         >
-          Discover stylish Nike arrivals, quality comfort, and innovations for
-          your active life.
+          Discover unique, trend-setting designs crafted for bold, confident
+          fashion enthusiasts. Shop now and redefine your wardrobe.
         </p>
         <LocalizedClientLink href="/store">
           <Button label="Shop Now" iconURL={arrowRight} />
@@ -75,8 +76,8 @@ const Hero = () => {
           className="flex sm:gap-6 gap-4 absolute -bottom-[5%]
         sm:left-[10%] max-sm:px-6"
         >
-          {shoes.map((image) => (
-            <div key={image}>
+          {tshirt.map((image) => (
+            <div key={image.id}>
               <ShoeCard
                 imgURL={image}
                 changeBigShoeImage={(shoe) => setBigShoeImg(shoe)}

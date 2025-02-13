@@ -1,4 +1,5 @@
 import { shoe8 } from "../../../../../public/assets/images"
+import { pawklanTshirt5 } from "../../../../../public/assets/images/pawklan/tshirt/transparent"
 import Button from "../Button/Button"
 import Image from "next/image"
 
@@ -14,19 +15,18 @@ const SuperQuality = () => {
           className="font-palanquin text-4xl font-bold capitalize
       lg:max-w-lg"
         >
-          We Provide You
-          <span className="text-coral-red"> Super</span>
-          <span className="text-coral-red"> Quality</span> Shoes
+          Elevate Your Style with
+          <span className="text-coral-red"> Premium</span>
+          <span className="text-coral-red"> Fashion</span> Clothing
         </h2>
         <p className="mt-4 lg:max-w-lg info-text">
-          Crafted with precision, designed for durability. Our shoes blend
-          premium materials with expert craftsmanship to deliver lasting quality
-          and style.
+          Discover a collection crafted for comfort and designed to keep you
+          on-trend. From classic staples to bold statements, we have got your
+          fashion needs covered.
         </p>
         <p className="mt-6 lg:max-w-lg info-text">
-          Experience next-level comfort with our advanced cushioning technology.
-          Whether you're running errands or hitting the gym, your feet stay
-          supported all day long.
+          Quality you can feel. Our premium fabrics and meticulous stitching
+          ensure every item fits like a dream — and lasts.
         </p>
         <div className="mt-11">
           <Button label="View Details" iconURL="" />
@@ -34,7 +34,7 @@ const SuperQuality = () => {
       </div>
       <div className="flex-1 flex justify-center items-center">
         <Image
-          src={shoe8}
+          src={pawklanTshirt5}
           alt="Super Quality"
           width={570}
           height={522}

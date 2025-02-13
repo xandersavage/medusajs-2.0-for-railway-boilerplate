@@ -1,3 +1,6 @@
+"use client"
+
+import { motion } from "framer-motion"
 import { products } from "../../../../../public/constants"
 import PopularProductCard from "../PopularProductCard/PopularProductCard"
 
@@ -16,7 +19,17 @@ const PopularProducts = () => {
 
       <div className="mt-16 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-4 gap-14">
         {products.map((product) => (
-          <PopularProductCard key={product.name} {...product} />
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            // animate={{ x: 100 }}
+            transition={{ ease: "easeOut" }}
+            initial={{ opacity: 0, y: 70 }}
+            whileInView={{ opacity: 1, y: 0, transition: { duration: 1.5 } }}
+            viewport={{ once: true }}
+          >
+            <PopularProductCard key={product.name} {...product} />
+          </motion.div>
         ))}
       </div>
     </section>

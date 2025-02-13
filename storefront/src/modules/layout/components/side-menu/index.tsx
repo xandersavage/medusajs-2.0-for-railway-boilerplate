@@ -24,45 +24,53 @@ const SideMenu = ({
   const toggleState = useToggleState()
 
   return (
-    <div className="flex flex-col fixed inset-0 backdrop-blur-md z-[9999]">
+    // Backdrop with smooth animation
+    <div className="fixed inset-0 z-[9999] transition-all duration-300">
+      {/* Menu Container with slide animation */}
       <div
         data-testid="nav-menu-popup"
-        className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
+        className="fixed left-0 h-screen w-full max-w-[300px] bg-white shadow-2xl transform transition-transform duration-300 ease-in-out"
       >
-        {/* Close button */}
-        <div className="flex justify-end" id="xmark">
-          <button data-testid="close-menu-button" onClick={onClose}>
-            <XMark />
+        {/* Header Section */}
+        <div className="flex items-center justify-between border-b border-gray-100 p-4">
+          <h2 className="font-montserrat text-xl font-bold">Menu</h2>
+          <button
+            onClick={onClose}
+            className="rounded-full p-2 hover:bg-gray-100 transition-colors"
+          >
+            <XMark className="h-6 w-6 text-gray-600" />
           </button>
         </div>
 
         {/* Menu Items */}
-        <ul className="flex flex-col gap-6 items-start justify-start">
-          {Object.entries(SideMenuItems).map(([name, href]) => (
-            <li key={name}>
-              <LocalizedClientLink
-                href={href}
-                className="text-3xl font-montserrat leading-10 font-bold text-white relative group
-                group-hover:translate-y-[-4px]"
-                onClick={onClose}
-                data-testid={`${name.toLowerCase()}-link`}
-              >
-                {name}
-                {/* Hover Effect */}
-                <span
-                  className="absolute left-0 bottom-0 w-full h-[7px]
-                 bg-coral-red scale-x-0 duration-500
-                 group-hover:scale-x-100 transition-all origin-bottom-left"
-                />
-              </LocalizedClientLink>
-            </li>
-          ))}
-        </ul>
+        <nav className="p-4">
+          <ul className="flex flex-col space-y-4">
+            {Object.entries(SideMenuItems).map(([name, href]) => (
+              <li key={name}>
+                <LocalizedClientLink
+                  href={href}
+                  className="group flex items-center space-x-2 rounded-lg p-2 transition-all hover:bg-gray-50"
+                  onClick={onClose}
+                  data-testid={`${name.toLowerCase()}-link`}
+                >
+                  <span className="font-montserrat text-lg text-gray-700 group-hover:text-coral-red transition-colors">
+                    {name}
+                  </span>
+                  {/* Subtle right arrow on hover */}
+                  <span className="opacity-0 transform translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
+                    →
+                  </span>
+                </LocalizedClientLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        {/* Country Selector and Footer */}
-        <div className="flex flex-col gap-y-6">
+        {/* Footer Section */}
+        <div className="absolute bottom-0 w-full border-t border-gray-100 p-4 space-y-4">
+          {/* Region Selector */}
           <div
-            className="flex justify-between"
+            className="rounded-lg bg-gray-50 p-3"
             onMouseEnter={toggleState.open}
             onMouseLeave={toggleState.close}
           >
@@ -70,8 +78,11 @@ const SideMenu = ({
               <CountrySelect toggleState={toggleState} regions={regions} />
             )}
           </div>
-          <Text className="flex justify-between txt-compact-small text-white mt-4">
-            © {new Date().getFullYear()} PawKlan Store. All rights reserved.
+
+          {/* Copyright */}
+          <Text className="text-center text-sm text-gray-500">
+            © {new Date().getFullYear()} PawKlan Store. <br />
+            All rights reserved.
           </Text>
         </div>
       </div>

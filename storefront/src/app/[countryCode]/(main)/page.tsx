@@ -10,6 +10,7 @@ import SuperQuality from "@modules/home/components/SuperQuality/SuperQuality"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
+import LatestProductsCarousel from "@modules/home/components/LatestProductsCarousel/LatestProductsCarousel"
 
 export const metadata: Metadata = {
   title: "Pawklan",
@@ -24,6 +25,9 @@ export default async function Home({
   const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
 
+  console.log("Collections:", collections) // Add this
+  console.log("Region:", region) // Add this
+
   if (!collections || !region) {
     return null
   }
@@ -33,6 +37,12 @@ export default async function Home({
       <section className="xl:padding-l wide:padding-r padding-b">
         <Hero />
       </section>
+
+      {/* Add Featured Products Section */}
+      <section className="padding">
+        <LatestProductsCarousel region={region} />
+      </section>
+
       <section className="padding">
         <PopularProducts />
       </section>

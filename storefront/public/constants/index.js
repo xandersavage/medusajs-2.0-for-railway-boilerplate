@@ -21,6 +21,16 @@ import {
   thumbnailShoe3,
 } from "../assets/images"
 
+// Pawklan Shirts
+import {
+  pawklanTshirt1,
+  pawklanTshirt2,
+  pawklanTshirt3,
+  pawklanTshirt4,
+  pawklanTshirt5,
+  pawklanTshirt6,
+} from "../assets/images/pawklan/tshirt/transparent"
+
 export const navLinks = [
   { href: "/", label: "Home" },
   { href: "#about-us", label: "About Us" },
@@ -44,32 +54,47 @@ export const shoes = [
   },
 ]
 
+export const tshirt = [
+  {
+    id: 1,
+    tshirt: pawklanTshirt1,
+  },
+  {
+    id: 2,
+    tshirt: pawklanTshirt2,
+  },
+  {
+    id: 3,
+    tshirt: pawklanTshirt3,
+  },
+]
+
 export const statistics = [
-  { value: "1k+", label: "Brands" },
-  { value: "500+", label: "Shops" },
-  { value: "250k+", label: "Customers" },
+  { value: "50+", label: "Unique Styles" },
+  { value: "100+", label: "Orders Fuffiled" },
+  { value: "1000+", label: "Happy Customers" },
 ]
 
 export const products = [
   {
-    imgURL: shoe4,
+    imgURL: pawklanTshirt1,
     name: "Nike Air Jordan-01",
-    price: "$200.20",
+    price: "₦200.20",
   },
   {
-    imgURL: shoe5,
+    imgURL: pawklanTshirt2,
     name: "Nike Air Jordan-10",
-    price: "$210.20",
+    price: "₦210.20",
   },
   {
-    imgURL: shoe6,
+    imgURL: pawklanTshirt3,
     name: "Nike Air Jordan-100",
-    price: "$220.20",
+    price: "₦220.20",
   },
   {
-    imgURL: shoe7,
+    imgURL: pawklanTshirt4,
     name: "Nike Air Jordan-001",
-    price: "$230.20",
+    price: "₦230.20",
   },
 ]
 
