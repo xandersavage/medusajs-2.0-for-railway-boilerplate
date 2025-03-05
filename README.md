@@ -38,5 +38,5 @@ Pawklan is a modern and scalable **e-commerce platform** built using **Medusa.js
 
 ## 📂 **Live Website**
 
-Visit the live project here: https://www.pawklan.com/ng
+Visit the live project here: https://www.pawklan.com/ng (website is temporarily down)
 
